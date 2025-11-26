@@ -7,9 +7,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [DoaController::class, 'index'])->name('doa.index');
 
 Route::get('/doa/random', [DoaController::class, 'random'])->name('doa.random');
 Route::get('/doa/{doa}', [DoaController::class, 'show'])->name('doa.show');

@@ -22,6 +22,12 @@ class DoaController extends Controller
             ->inRandomOrder()
             ->first();
 
+        if (!$doa) {
+            return back()->with('error', 'Doa tidak ditemukan dengan tag tersebut.');
+        }
+
+        session()->push('doa_history', $doa->id);
+
         return view('doa.show', compact('doa'));
     }
 
@@ -61,9 +67,26 @@ class DoaController extends Controller
         return redirect()->route('doa.show', $doa);
     }
 
-    public function next()
+    public function next(Request $request)
     {
-        // Implementasikan logika untuk menampilkan doa berikutnya dari history
+        $tags = $request->input('tags', []);
+
+        $doa = Doa::when(!empty($tags), function ($query) use ($tags) {
+            $query->whereHas('tags', function ($query) use ($tags) {
+                $query->whereIn('tags.id', $tags);
+            });
+        })
+            ->where('untuk_pribadi', false)
+            ->inRandomOrder()
+            ->first();
+
+        if (!$doa) {
+            return back()->with('error', 'Doa tidak ditemukan dengan tag tersebut.');
+        }
+
+        session()->push('doa_history', $doa->id);
+
+        return view('doa.show', compact('doa'));
     }
 
     public function manageVisibility(Doa $doa, Request $request)
@@ -97,8 +120,10 @@ class DoaController extends Controller
 
     public function index()
     {
-        $doa = Doa::all(); // Fetch all doa
-        return view('doa.manage.index', compact('doa')); // Create a view in doa/manage/index.blade.php
+        $doa = Doa::inRandomOrder()->first(); // Fetch all doa
+        $tags = Tag::all();
+        return view('index', compact('doa', 'tags')); // Create a view in doa/manage/index.blade.php
+
     }
 
     public function create()
