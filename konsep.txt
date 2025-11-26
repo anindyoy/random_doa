@@ -1,0 +1,29 @@
+konsep aplikasi random doa
+
+buatkan langkah membuat aplikasi laravel dengan konsep berikut
+
+- fitur utama adalah menampilkan 1 doa random
+- user bisa merandom doa yang dengan filter tag yang bisa lebih dari satu
+- user bisa melihat list doa berdasarkan tag nya
+- ada tombol sebelumnya, untuk menampilkan doa sebelumnya, jika sebelumnya sudah melakukan random
+- ada tombol selanjutnya untuk menampilkan random doa berikutnya
+- attribute doa adalah: judul doa string, gambar string, keterangan string nullable, riwayat string nullable, untuk_pribadi (true, default false), tag_id foreign_key nullable, user_id foreign_key, visibility (default false), ajuan nullable
+- attribute user adalah: nama, email, password, is_admin (true, default false)
+- attribute tag adalah: nama, deskripsi
+- ada table untuk mengatur visibility dan love setiap doa untuk setiap user
+- user yang login atau guest bisa melihat doa yang untuk_pribadi false
+- doa yang untuk_pribadi true hanya bisa dilihat oleh user yang login dengan user id yang sama dengan doa tersebut
+- setiap doa yang dibuat oleh user admin nilai untuk_pribadi false
+- setiap user yang login bisa mengelola doa untuk_pribadi mereka dan mengatur visibility nya
+- user juga mengatur visibility dan love doa yang nilai untuk_pribadi false di halaman utama, yang jika belum login, akan diarahkan untuk login atau mendaftar
+- user bisa mengajukan doa yang untuk_pribadi nya false ke admin
+
+9. Implementasi Fitur Tambahan:
+
+Autentikasi dan Otorisasi: Gunakan fitur autentikasi bawaan Laravel. Implementasikan middleware untuk membatasi akses ke route tertentu berdasarkan role user (admin atau user biasa).
+Upload Gambar: Implementasikan fitur upload gambar untuk doa. Gunakan Storage facade Laravel untuk menyimpan gambar.
+Admin Panel: Buat admin panel untuk mengelola doa, tag, dan user. Bisa menggunakan package seperti Laravel Nova atau Voyager.
+Validasi: Tambahkan validasi untuk input user (misalnya, saat membuat atau mengedit doa).
+Paginasi: Implementasikan paginasi untuk daftar doa jika jumlah doa sangat banyak.
+Session Management: Gunakan session untuk menyimpan riwayat doa yang dilihat user untuk fitur "sebelumnya" dan "selanjutnya".
+Front-end Framework (Optional): Jika Anda ingin tampilan yang lebih interaktif, Anda bisa menggunakan front-end framework seperti Vue.js atau React.
