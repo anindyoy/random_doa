@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('doa_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doa_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('doa_id')->on('doa');
+            $table->foreignId('user_id');
             $table->boolean('visibility')->default(false);
             $table->boolean('love')->default(false);
             $table->timestamps();

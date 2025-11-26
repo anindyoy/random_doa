@@ -18,17 +18,17 @@ class DoaController extends Controller
                 $query->whereIn('tags.id', $tags);
             });
         })
-        ->where('untuk_pribadi', false)
-        ->inRandomOrder()
-        ->first();
+            ->where('untuk_pribadi', false)
+            ->inRandomOrder()
+            ->first();
 
         return view('doa.show', compact('doa'));
     }
 
     public function indexByTag(Tag $tag)
     {
-        $doas = $tag->doas()->where('untuk_pribadi', false)->get();
-        return view('doa.index', compact('doas', 'tag'));
+        $doa = $tag->doa()->where('untuk_pribadi', false)->get();
+        return view('doa.index', compact('doa', 'tag'));
     }
 
     public function show(Doa $doa)
@@ -80,7 +80,7 @@ class DoaController extends Controller
             }
 
             // Simpan visibilitas di tabel pivot doa_user
-            $user->doas()->syncWithoutDetaching([
+            $user->doa()->syncWithoutDetaching([
                 $doa->id => ['visibility' => $visibility]
             ]);
 
@@ -93,5 +93,93 @@ class DoaController extends Controller
     public function propose(Doa $doa)
     {
         // Logika untuk mengajukan doa ke admin
+    }
+
+    public function index()
+    {
+        $doa = Doa::all(); // Fetch all doa
+        return view('doa.manage.index', compact('doa')); // Create a view in doa/manage/index.blade.php
+    }
+
+    public function create()
+    {
+        $tags = Tag::all();
+        return view('doa.manage.create', compact('tags')); // Create a view in doa/manage/create.blade.php
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'judul_doa' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate image
+            'keterangan' => 'nullable|string',
+            'riwayat' => 'nullable|string',
+            'untuk_pribadi' => 'boolean',
+            'tag_id' => 'nullable|exists:tags,id',
+            'visibility' => 'boolean',
+            'ajuan' => 'nullable|string',
+        ]);
+
+        $doa = new Doa($request->except('gambar'));
+        $doa->user_id = Auth::id();
+
+        // Handle image upload
+        if ($request->hasFile('gambar')) {
+            $imagePath = $request->file('gambar')->store('doa_images', 'public'); // Store in storage/app/public/doa_images
+            $doa->gambar = $imagePath;
+        }
+
+        $doa->save();
+
+        return redirect()->route('doa.index')->with('success', 'Doa created successfully.');
+    }
+
+    public function edit(Doa $doa)
+    {
+        $tags = Tag::all();
+        return view('doa.manage.edit', compact('doa', 'tags')); // Create a view in doa/manage/edit.blade.php
+    }
+
+    public function update(Request $request, Doa $doa)
+    {
+        $request->validate([
+            'judul_doa' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate image
+            'keterangan' => 'nullable|string',
+            'riwayat' => 'nullable|string',
+            'untuk_pribadi' => 'boolean',
+            'tag_id' => 'nullable|exists:tags,id',
+            'visibility' => 'boolean',
+            'ajuan' => 'nullable|string',
+        ]);
+
+        $doa->fill($request->except('gambar')); // Use fill instead of direct assignment
+
+        // Handle image upload
+        if ($request->hasFile('gambar')) {
+            // Delete old image if exists
+            if ($doa->gambar) {
+                Storage::disk('public')->delete($doa->gambar);
+            }
+
+            $imagePath = $request->file('gambar')->store('doa_images', 'public');
+            $doa->gambar = $imagePath;
+        }
+
+        $doa->save();
+
+        return redirect()->route('doa.index')->with('success', 'Doa updated successfully.');
+    }
+
+    public function destroy(Doa $doa)
+    {
+        // Delete image if exists
+        if ($doa->gambar) {
+            Storage::disk('public')->delete($doa->gambar);
+        }
+
+        $doa->delete();
+
+        return redirect()->route('doa.index')->with('success', 'Doa deleted successfully.');
     }
 }

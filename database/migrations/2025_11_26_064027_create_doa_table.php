@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doas', function (Blueprint $table) {
+        Schema::create('doa', function (Blueprint $table) {
             $table->id();
             $table->string('judul_doa');
             $table->string('gambar')->nullable();
             $table->text('keterangan')->nullable();
             $table->text('riwayat')->nullable();
             $table->boolean('untuk_pribadi')->default(false);
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->boolean('visibility')->default(false);
-            $table->boolean('ajuan')->nullable();
+            $table->foreignId('user_id');
+            $table->boolean('visibility')->default(true);
+            $table->string('ajuan', 20)->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('doas');
+        Schema::dropIfExists('doa');
     }
 };

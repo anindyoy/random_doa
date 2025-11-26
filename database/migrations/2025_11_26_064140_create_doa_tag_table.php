@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('doa_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doa_id')->constrained()->onDelete('cascade');
-            $table->foreignId('tag_id')->constrained()->onDelete('cascade');
+            $table->foreignId('doa_id')->on('doa');
+            $table->foreignId('tag_id');
             $table->timestamps();
 
             $table->unique(['doa_id', 'tag_id']);

@@ -12,7 +12,7 @@ class Tag extends Model
 
     protected $fillable = ['nama', 'deskripsi'];
 
-    public function doas(): BelongsToMany
+    public function doa(): BelongsToMany
     {
         return $this->belongsToMany(Doa::class);
     }
