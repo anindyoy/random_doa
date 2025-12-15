@@ -27,3 +27,19 @@ Validasi: Tambahkan validasi untuk input user (misalnya, saat membuat atau menge
 Paginasi: Implementasikan paginasi untuk daftar doa jika jumlah doa sangat banyak.
 Session Management: Gunakan session untuk menyimpan riwayat doa yang dilihat user untuk fitur "sebelumnya" dan "selanjutnya".
 Front-end Framework (Optional): Jika Anda ingin tampilan yang lebih interaktif, Anda bisa menggunakan front-end framework seperti Vue.js atau React.
+
+
+tanya
+
+buatkan halaman untuk menampilkan 1 data doa secara random
+- user bisa merandom doa yang dengan filter tag yang bisa lebih dari satu
+- ada tombol sebelumnya, untuk menampilkan doa sebelumnya, jika sebelumnya sudah melakukan random
+- ada tombol selanjutnya untuk menampilkan random doa berikutnya
+- skema table doa
+
+CREATE TABLE `doa` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `judul_doa` varchar(255) NOT NULL,
+  `gambar` varchar(255) DEFAULT NULL,
+  `keterangan` text DEFAULT NULL,
+  `riwayat` text DEFAULT NULL,

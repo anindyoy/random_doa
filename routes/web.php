@@ -7,7 +7,12 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
 
-Route::get('/', [DoaController::class, 'index'])->name('doa.index');
+// Route::get('/', [DoaController::class, 'index'])->name('doa.index');
+
+// Gunakan route view jika Anda hanya ingin menampilkan view yang berisi komponen Livewire
+Route::get('/', function () {
+    return view('welcome'); // Pastikan Anda memiliki view ini
+})->name('doa.index');
 
 Route::get('/doa/random', [DoaController::class, 'random'])->name('doa.random');
 Route::get('/doa/{doa}', [DoaController::class, 'show'])->name('doa.show');
