@@ -135,7 +135,7 @@ class DoaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul_doa' => 'required|string|max:255',
+            'judul' => 'required|string|max:255',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate image
             'keterangan' => 'nullable|string',
             'riwayat' => 'nullable|string',
@@ -168,7 +168,7 @@ class DoaController extends Controller
     public function update(Request $request, Doa $doa)
     {
         $request->validate([
-            'judul_doa' => 'required|string|max:255',
+            'judul' => 'required|string|max:255',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate image
             'keterangan' => 'nullable|string',
             'riwayat' => 'nullable|string',

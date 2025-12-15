@@ -11,7 +11,7 @@ use App\Http\Middleware\AdminMiddleware;
 
 // Gunakan route view jika Anda hanya ingin menampilkan view yang berisi komponen Livewire
 Route::get('/', function () {
-    return view('welcome'); // Pastikan Anda memiliki view ini
+    return view('index'); // Pastikan Anda memiliki view ini
 })->name('doa.index');
 
 Route::get('/doa/random', [DoaController::class, 'random'])->name('doa.random');
@@ -24,7 +24,7 @@ Route::post('/doa/{doa}/propose', [DoaController::class, 'propose'])->name('doa.
 
 // Doa Management Routes (Admin Only)
 Route::middleware([AdminMiddleware::class])->group(function () {
-    Route::get('/doa', [DoaController::class, 'index'])->name('doa.index'); // List all doa (admin)
+    // Route::get('/doa', [DoaController::class, 'index'])->name('doa.index'); // List all doa (admin)
     Route::get('/doa/create', [DoaController::class, 'create'])->name('doa.create'); // Create form
     Route::post('/doa', [DoaController::class, 'store'])->name('doa.store'); // Store new doa
     Route::get('/doa/{doa}/edit', [DoaController::class, 'edit'])->name('doa.edit'); // Edit form
@@ -33,6 +33,6 @@ Route::middleware([AdminMiddleware::class])->group(function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

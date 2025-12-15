@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('doa', function (Blueprint $table) {
             $table->id();
-            $table->string('judul_doa');
+            $table->string('judul');
             $table->string('gambar')->nullable();
             $table->text('keterangan')->nullable();
+            $table->string('sumber_desain')->nullable();
             $table->text('riwayat')->nullable();
             $table->boolean('untuk_pribadi')->default(false);
             $table->foreignId('user_id');

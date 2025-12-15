@@ -16,7 +16,7 @@ class DoaFactory extends Factory
     {
         $user = User::inRandomOrder()->first();
         return [
-            'judul_doa' => $this->faker->sentence(),
+            'judul' => $this->faker->sentence(),
             'gambar' => $this->faker->imageUrl(),
             'keterangan' => $this->faker->paragraph(),
             'riwayat' => $this->faker->optional()->paragraph(),

@@ -2,11 +2,11 @@
 <html>
 
 <head>
-    <title>{{ $doa->judul_doa }}</title>
+    <title>{{ $doa->judul }}</title>
 </head>
 
 <body>
-    <h1>{{ $doa->judul_doa }}</h1>
+    <h1>{{ $doa->judul }}</h1>
     @if ($doa->gambar)
         <img src="{{ asset('storage/' . $doa->gambar) }}" alt="Gambar Doa">
     @endif

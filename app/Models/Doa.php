@@ -16,7 +16,7 @@ class Doa extends Model
     protected $table = 'doa';
 
     protected $fillable = [
-        'judul_doa',
+        'judul',
         'gambar',
         'keterangan',
         'riwayat',

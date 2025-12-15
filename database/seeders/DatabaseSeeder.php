@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Doa;
 use App\Models\Tag;
 use App\Models\User;
+use Database\Seeders\DoaSeeder;
 use Illuminate\Database\Seeder;
 use Database\Factories\DoaFactory;
 use Illuminate\Support\Facades\DB;
@@ -38,10 +39,12 @@ class DatabaseSeeder extends Seeder
         // create data
         User::factory(2)->create();
         Tag::factory(5)->create();
-        Doa::factory(10)->create()
-            ->each(function ($doa) {
-                $tags = Tag::inRandomOrder()->limit(rand(1, 2))->get();
-                $doa->tags()->attach($tags);
-            });
+        // Doa::factory(10)->create()
+        //     ->each(function ($doa) {
+        //         $tags = Tag::inRandomOrder()->limit(rand(1, 2))->get();
+        //         $doa->tags()->attach($tags);
+        //     });
+
+        $this->call([DoaSeeder::class]);
     }
 }

@@ -39,7 +39,7 @@ buatkan halaman untuk menampilkan 1 data doa secara random
 
 CREATE TABLE `doa` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `judul_doa` varchar(255) NOT NULL,
+  `judul` varchar(255) NOT NULL,
   `gambar` varchar(255) DEFAULT NULL,
   `keterangan` text DEFAULT NULL,
   `riwayat` text DEFAULT NULL,
