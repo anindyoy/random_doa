@@ -9,30 +9,52 @@ use Livewire\Component;
 class RandomDoa extends Component
 {
     public $doa;
-    public $tags; // Untuk menampilkan daftar tag di view, jika diperlukan
+    public $tags;
+    public $history = [];
+    public $historyIndex = -1;
 
-    // Metode yang dijalankan saat komponen di-load
     public function mount()
     {
-        $this->loadRandomDoa();
-        $this->tags = Tag::all(); // Ambil semua tag untuk ditampilkan
+        $this->loadInitialDoa();
+        $this->tags = Tag::all();
     }
 
-    // Metode untuk memuat doa acak
+    private function loadInitialDoa()
+    {
+        $this->doa = Doa::with('tags')->inRandomOrder()->first();
+
+        if ($this->doa) {
+            $this->history[] = $this->doa->id;
+            $this->historyIndex = 0;
+        }
+    }
+
     public function loadRandomDoa()
     {
-        // Logika yang mirip dengan DoaController@index atau DoaController@random
-        // Jika Anda ingin hanya menampilkan doa yang tidak 'untuk_pribadi' (seperti di random()),
-        // Anda bisa menyesuaikan query-nya.
-        // Berdasarkan web.php, index() di DoaController hanya mengambil 1 doa acak.
+        $newDoa = Doa::with('tags')->inRandomOrder()->first();
 
-        $this->doa = Doa::inRandomOrder()->first();
+        if (!$newDoa) {
+            return;
+        }
+
+        if ($this->historyIndex < count($this->history) - 1) {
+            $this->history = array_slice($this->history, 0, $this->historyIndex + 1);
+        }
+
+        $this->doa = $newDoa;
+
+        $this->history[] = $this->doa->id;
+        $this->historyIndex = count($this->history) - 1;
     }
 
-    // Metode yang dibutuhkan Livewire untuk merender view
-    public function render()
+    public function loadPreviousDoa()
     {
-        // Data $doa dan $tags sudah tersedia melalui properti public
-        return view('livewire.random-doa');
+        if ($this->historyIndex > 0) {
+            $this->historyIndex--;
+
+            $previousDoaId = $this->history[$this->historyIndex];
+
+            $this->doa = Doa::with('tags')->find($previousDoaId);
+        }
     }
 }
