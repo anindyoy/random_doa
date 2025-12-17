@@ -37,8 +37,8 @@ class DatabaseSeeder extends Seeder
         Tag::truncate();
 
         // create data
-        User::factory(2)->create();
         Tag::factory(5)->create();
+        User::factory(2)->create();
         // Doa::factory(10)->create()
         //     ->each(function ($doa) {
         //         $tags = Tag::inRandomOrder()->limit(rand(1, 2))->get();

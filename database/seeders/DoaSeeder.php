@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Doa;
 use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class DoaSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class DoaSeeder extends Seeder
     public function run(): void
     {
         Doa::truncate();
+        DB::table('doa_tag')->truncate();
 
         $konten = $this->getKonten();
         $sourcePath = database_path('seeders/doa');
@@ -23,6 +25,13 @@ class DoaSeeder extends Seeder
 
         Storage::disk('public')->deleteDirectory($storageDir);
         Storage::disk('public')->makeDirectory($storageDir);
+
+        $allTagIds = DB::table('tags')->pluck('id')->toArray();
+
+        if (empty($allTagIds)) {
+            // Jika tidak ada tag, beri peringatan
+            $this->command->warn('Tidak ada tag yang tersedia. Silakan seed tabel tags terlebih dahulu.');
+        }
 
         foreach ($konten as $key => $value) {
 
@@ -47,6 +56,25 @@ class DoaSeeder extends Seeder
             $doa->user_id = $adminUser ? $adminUser->id : null;
 
             $doa->save();
+
+            if (!empty($allTagIds)) {
+                $numberOfTags = rand(1, 2); // Random 1 atau 2 tag
+                $randomTagIds = array_rand(array_flip($allTagIds), min($numberOfTags, count($allTagIds)));
+
+                // Pastikan $randomTagIds adalah array
+                if (!is_array($randomTagIds)) {
+                    $randomTagIds = [$randomTagIds];
+                }
+
+                foreach ($randomTagIds as $tagId) {
+                    DB::table('doa_tag')->insert([
+                        'doa_id' => $doa->id,
+                        'tag_id' => $tagId,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
         }
     }
 
