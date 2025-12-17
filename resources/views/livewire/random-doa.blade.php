@@ -1,4 +1,33 @@
 <div class="max-w-3xl mx-auto py-1 px-4 sm:px-6 lg:px-8">
+    {{-- Auth Section --}}
+    <div class="mb-4 flex justify-end">
+        @auth
+            <div class="flex items-center gap-3 bg-white px-4 py-2 rounded-lg shadow-md">
+                <span class="text-sm text-gray-700">
+                    <i class="fas fa-user-circle text-indigo-600 mr-1"></i>
+                    <span class="font-medium">{{ Auth::user()->name }}</span>
+                </span>
+                <div class="flex gap-2">
+                    <a href="{{ route('filament.admin.pages.dashboard') }}"
+                        class="px-3 py-1 bg-indigo-500 text-white text-sm font-medium rounded-lg hover:bg-indigo-600 transition duration-150 no-underline">
+                        <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
+                    </a>
+                    <form method="POST" action="{{ route('filament.admin.auth.logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="px-3 py-1 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600 transition duration-150 no-underline">
+                            <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @else
+            <a href="{{ route('filament.admin.auth.login') }}"
+                class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow-md hover:bg-indigo-700 transition duration-150 no-underline">
+                <i class="fas fa-sign-in-alt mr-1"></i> Login
+            </a>
+        @endauth
+    </div>
+
     {{-- Header --}}
     <div class="mb-2 text-center">
         <h1 class="text-4xl font-extrabold text-gray-800 mb-2">
@@ -50,8 +79,7 @@
 
                     {{-- Riwayat (Jika Ada) --}}
                     @if ($doa->riwayat)
-                        <div class="mt-6 p-2 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 text-sm rounded-md">
-                            <span class="font-semibold">Riwayat:</span>
+                        <div class="mt-6 p-2 font-bold bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 text-sm rounded-md">
                             <span>{{ $doa->riwayat }}</span>
                         </div>
                     @endif
@@ -151,4 +179,10 @@
             @endforeach
         </div>
     </div>
+    <style>
+        .no-underline,
+        a {
+            text-decoration: none !important;
+        }
+    </style>
 </div>

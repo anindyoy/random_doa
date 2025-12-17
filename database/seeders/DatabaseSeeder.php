@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         User::firstOrCreate(
             [
-                'email' => 'admin@example.com'
+                'email' => 'admin@gmail.com'
             ],
             [
                 'name' => 'Admin',
