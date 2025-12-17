@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DoaController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
 
@@ -13,6 +14,11 @@ use App\Http\Middleware\AdminMiddleware;
 Route::get('/', function () {
     return view('index'); // Pastikan Anda memiliki view ini
 })->name('doa.index');
+
+Route::middleware(['web'])->group(function () {
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+});
 
 Route::get('/doa/random', [DoaController::class, 'random'])->name('doa.random');
 Route::get('/doa/{doa}', [DoaController::class, 'show'])->name('doa.show');
