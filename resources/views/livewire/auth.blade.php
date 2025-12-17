@@ -1,142 +1,142 @@
 <div class="mb-4 flex justify-end" x-data="{ showLoginModal: false }">
-        @auth
-            <div class="flex items-center gap-3 bg-white px-4 py-2 rounded-lg shadow-md border border-gray-200">
-                <span class="text-sm text-gray-700">
-                    <i class="fas fa-user-circle text-indigo-600 mr-1"></i>
-                    <span class="font-medium">{{ Auth::user()->name }}</span>
-                </span>
-                <div class="flex gap-2">
-                    <a href="{{ route('filament.admin.pages.dashboard') }}"
-                        class="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 transition duration-150 no-underline shadow-md">
-                        <i class="fas fa-tachometer-alt mr-1"></i> Member Area
-                    </a>
-                    <form method="POST" action="{{ route('logout') }}" class="inline">
-                        @csrf
-                        <button type="submit" class="px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md">
-                            <i class="fas fa-sign-out-alt mr-1"></i> Logout
-                        </button>
-                    </form>
-                </div>
+    @auth
+        <div class="flex items-center gap-3 bg-white px-4 py-2 rounded-lg shadow-md border border-gray-200">
+            <span class="text-sm text-gray-700">
+                <i class="fas fa-user-circle text-indigo-600 mr-1"></i>
+                <span class="font-medium">{{ Auth::user()->name }}</span>
+            </span>
+            <div class="flex gap-2">
+                <a href="{{ route('filament.admin.pages.dashboard') }}"
+                    class="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 transition duration-150 no-underline shadow-md cursor-pointer">
+                    <i class="fas fa-tachometer-alt mr-1"></i> Member Area
+                </a>
+                <form method="POST" action="{{ route('logout') }}" class="inline">
+                    @csrf
+                    <button type="submit" class="px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md cursor-pointer">
+                        <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                    </button>
+                </form>
             </div>
-        @else
-            <button @click="showLoginModal = true"
-                class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg border border-indigo-700 shadow-md hover:bg-indigo-700 transition duration-150">
-                <i class="fas fa-sign-in-alt mr-1"></i> Login
-            </button>
+        </div>
+    @else
+        <button @click="showLoginModal = true"
+            class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg border border-indigo-700 shadow-md hover:bg-indigo-700 transition duration-150 cursor-pointer">
+            <i class="fas fa-sign-in-alt mr-1"></i> Login
+        </button>
 
-            {{-- LOGIN MODAL --}}
-            <template x-teleport="body">
-                <div x-show="showLoginModal"
-                    x-transition:enter="ease-out duration-300"
-                    x-transition:enter-start="opacity-0"
-                    x-transition:enter-end="opacity-100"
-                    x-transition:leave="ease-in duration-200"
-                    x-transition:leave-start="opacity-100"
-                    x-transition:leave-end="opacity-0"
-                    class="fixed inset-0 z-50 overflow-y-auto"
-                    style="display: none;">
+        {{-- LOGIN MODAL --}}
+        <template x-teleport="body">
+            <div x-show="showLoginModal"
+                x-transition:enter="ease-out duration-300"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                x-transition:leave="ease-in duration-200"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="fixed inset-0 z-50 overflow-y-auto"
+                style="display: none;">
 
-                    {{-- Overlay --}}
-                    <div @click="showLoginModal = false" class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+                {{-- Overlay --}}
+                <div @click="showLoginModal = false" class="fixed inset-0 bg-white bg-opacity-20 backdrop-blur-sm transition-opacity"></div>
 
-                    {{-- Modal Content --}}
-                    <div class="flex items-center justify-center min-h-screen p-4">
-                        <div x-show="showLoginModal"
-                            x-transition:enter="ease-out duration-300"
-                            x-transition:enter-start="opacity-0 scale-95"
-                            x-transition:enter-end="opacity-100 scale-100"
-                            x-transition:leave="ease-in duration-200"
-                            x-transition:leave-start="opacity-100 scale-100"
-                            x-transition:leave-end="opacity-0 scale-95"
-                            class="relative bg-white rounded-xl shadow-2xl w-full max-w-md transform transition-all"
-                            @click.away="showLoginModal = false">
+                {{-- Modal Content --}}
+                <div class="flex items-center justify-center min-h-screen p-4">
+                    <div x-show="showLoginModal"
+                        x-transition:enter="ease-out duration-300"
+                        x-transition:enter-start="opacity-0 scale-95"
+                        x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="ease-in duration-200"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 scale-95"
+                        class="relative bg-white rounded-xl shadow-2xl w-full max-w-md transform transition-all"
+                        @click.away="showLoginModal = false">
 
-                            {{-- Close Button --}}
-                            <button @click="showLoginModal = false"
-                                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
-                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                            </button>
+                        {{-- Close Button --}}
+                        <button @click="showLoginModal = false"
+                            class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition cursor-pointer">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
 
-                            {{-- Modal Header --}}
-                            <div class="px-6 pt-6 pb-4 border-b border-gray-200">
-                                <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-                                    <i class="fas fa-sign-in-alt text-indigo-600"></i>
-                                    Login
-                                </h3>
-                                <p class="text-sm text-gray-600 mt-1">Masuk untuk mengakses admin panel</p>
-                            </div>
+                        {{-- Modal Header --}}
+                        <div class="px-6 pt-6 pb-4 border-b border-gray-200">
+                            <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                                <i class="fas fa-sign-in-alt text-indigo-600"></i>
+                                Login
+                            </h3>
+                            <p class="text-sm text-gray-600 mt-1">Masuk untuk mengakses halaman kelola doa pribadimu</p>
+                        </div>
 
-                            {{-- Login Form --}}
-                            <form method="POST" action="{{ route('login') }}" class="p-6">
-                                @csrf
+                        {{-- Login Form --}}
+                        <form method="POST" action="{{ route('login') }}" class="p-6">
+                            @csrf
 
-                                {{-- Display Errors --}}
-                                @if ($errors->any())
-                                    <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                                        <div class="flex items-start gap-2">
-                                            <i class="fas fa-exclamation-circle text-red-500 mt-0.5"></i>
-                                            <div class="text-sm text-red-700">
-                                                @foreach ($errors->all() as $error)
-                                                    <p>{{ $error }}</p>
-                                                @endforeach
-                                            </div>
+                            {{-- Display Errors --}}
+                            @if ($errors->any())
+                                <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                                    <div class="flex items-start gap-2">
+                                        <i class="fas fa-exclamation-circle text-red-500 mt-0.5"></i>
+                                        <div class="text-sm text-red-700">
+                                            @foreach ($errors->all() as $error)
+                                                <p>{{ $error }}</p>
+                                            @endforeach
                                         </div>
                                     </div>
-                                @endif
-
-                                {{-- Email Field --}}
-                                <div class="mb-4">
-                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                                        <i class="fas fa-envelope text-gray-400 mr-1"></i>
-                                        Email
-                                    </label>
-                                    <input type="email"
-                                        id="email"
-                                        name="email"
-                                        value="{{ old('email') }}"
-                                        required
-                                        autofocus
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                                        placeholder="admin@example.com">
                                 </div>
+                            @endif
 
-                                {{-- Password Field --}}
-                                <div class="mb-6">
-                                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                                        <i class="fas fa-lock text-gray-400 mr-1"></i>
-                                        Password
-                                    </label>
-                                    <input type="password"
-                                        id="password"
-                                        name="password"
-                                        required
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                                        placeholder="••••••••">
-                                </div>
+                            {{-- Email Field --}}
+                            <div class="mb-4">
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-envelope text-gray-400 mr-1"></i>
+                                    Email
+                                </label>
+                                <input type="email"
+                                    id="email"
+                                    name="email"
+                                    value="{{ old('email') }}"
+                                    required
+                                    autofocus
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                                    placeholder="admin@example.com">
+                            </div>
 
-                                {{-- Remember Me --}}
-                                <div class="mb-6 flex items-center">
-                                    <input type="checkbox"
-                                        id="remember"
-                                        name="remember"
-                                        class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                                    <label for="remember" class="ml-2 block text-sm text-gray-700">
-                                        Ingat saya
-                                    </label>
-                                </div>
+                            {{-- Password Field --}}
+                            <div class="mb-6">
+                                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-lock text-gray-400 mr-1"></i>
+                                    Password
+                                </label>
+                                <input type="password"
+                                    id="password"
+                                    name="password"
+                                    required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                                    placeholder="••••••••">
+                            </div>
 
-                                {{-- Submit Button --}}
-                                <button type="submit"
-                                    class="w-full py-3 px-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150">
-                                    <i class="fas fa-sign-in-alt mr-2"></i>
-                                    Masuk
-                                </button>
-                            </form>
-                        </div>
+                            {{-- Remember Me --}}
+                            <div class="mb-6 flex items-center">
+                                <input type="checkbox"
+                                    id="remember"
+                                    name="remember"
+                                    class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded cursor-pointer">
+                                <label for="remember" class="ml-2 block text-sm text-gray-700 cursor-pointer">
+                                    Ingat saya
+                                </label>
+                            </div>
+
+                            {{-- Submit Button --}}
+                            <button type="submit"
+                                class="w-full py-3 px-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 cursor-pointer">
+                                <i class="fas fa-sign-in-alt mr-2"></i>
+                                Masuk
+                            </button>
+                        </form>
                     </div>
                 </div>
-            </template>
-        @endauth
-    </div>
+            </div>
+        </template>
+    @endauth
+</div>

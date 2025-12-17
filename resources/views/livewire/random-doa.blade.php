@@ -28,14 +28,14 @@
                 <button
                     wire:click="loadPreviousDoa"
                     {{ $historyIndex <= 0 ? 'disabled' : '' }}
-                    class="py-3 px-6 font-bold rounded-lg shadow-xl focus:outline-none focus:ring-4 transition duration-150 {{ $historyIndex <= 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 focus:ring-opacity-50' }}">
+                    class="py-3 px-6 font-bold rounded-lg shadow-xl focus:outline-none focus:ring-4 transition duration-150 {{ $historyIndex <= 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 cursor-pointer focus:ring-opacity-50' }}">
                     <i class="fas fa-arrow-left mr-2"></i> Doa Sebelumnya
                 </button>
 
                 {{-- Tombol Next (Doa Acak) --}}
                 <button
                     wire:click="loadRandomDoa"
-                    class="py-3 px-6 bg-green-600 text-white font-bold rounded-lg shadow-xl hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition duration-150">
+                    class="py-3 px-6 bg-green-600 text-white font-bold rounded-lg shadow-xl hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition cursor-pointer duration-150">
                     <i class="fas fa-redo-alt mr-2"></i> Doa Acak Berikutnya
                 </button>
             </div>
