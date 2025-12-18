@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Filament\Tables\Table;
+use Filament\Schemas\Components\Grid;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Table::configureUsing(function (Table $table): void {
+            $table->striped();
+        });
+
+        // Set default form grid to 3 columns
+        Grid::configureUsing(function (Grid $grid): void {
+            // $grid->columns(3);
+        });
     }
 }
