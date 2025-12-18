@@ -14,7 +14,7 @@ class DoaFactory extends Factory
      */
     public function definition()
     {
-        $user = User::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first() ?? User::factory()->create();
         return [
             'judul' => $this->faker->sentence(),
             'gambar' => $this->faker->imageUrl(),
