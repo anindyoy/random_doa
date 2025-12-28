@@ -1,65 +1,110 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-white to-purple-50 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+            {{-- Header --}}
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-8 text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4">
+                    <i class="fas fa-key text-3xl text-indigo-600"></i>
                 </div>
+                <h1 class="text-2xl font-bold text-white mb-2">Reset Password</h1>
+                <p class="text-indigo-100 text-sm">Buat password baru untuk akun Anda</p>
+            </div>
+
+            {{-- Form --}}
+            <div class="p-6">
+                <form method="POST" action="{{ route('password.update') }}">
+                    @csrf
+                    <input type="hidden" name="token" value="{{ $token }}">
+                    <input type="hidden" name="email" value="{{ $email }}">
+
+                    {{-- Display Errors --}}
+                    @if ($errors->any())
+                        <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                            <div class="flex items-start gap-2">
+                                <i class="fas fa-exclamation-circle text-red-500 mt-0.5"></i>
+                                <div class="text-sm text-red-700">
+                                    @foreach ($errors->all() as $error)
+                                        <p>{{ $error }}</p>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    {{-- Email Field (Readonly) --}}
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-envelope text-gray-400 mr-1"></i>
+                            Email
+                        </label>
+                        <input type="email"
+                            id="email"
+                            value="{{ $email }}"
+                            readonly
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 cursor-not-allowed"
+                            placeholder="admin@example.com">
+                    </div>
+
+                    {{-- Password Field --}}
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-lock text-gray-400 mr-1"></i>
+                            Password Baru
+                        </label>
+                        <input type="password"
+                            id="password"
+                            name="password"
+                            required
+                            autofocus
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                            placeholder="Min. 8 karakter">
+                    </div>
+
+                    {{-- Password Confirmation Field --}}
+                    <div class="mb-6">
+                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-lock text-gray-400 mr-1"></i>
+                            Konfirmasi Password Baru
+                        </label>
+                        <input type="password"
+                            id="password_confirmation"
+                            name="password_confirmation"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                            placeholder="Ulangi password baru">
+                    </div>
+
+                    {{-- Submit Button --}}
+                    <button type="submit"
+                        class="w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 shadow-md">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        Reset Password
+                    </button>
+
+                    {{-- Back to Login Link --}}
+                    <div class="mt-6 text-center">
+                        <a href="/" class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                            <i class="fas fa-arrow-left mr-1"></i>
+                            Kembali ke Halaman Utama
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
+
+        {{-- Footer --}}
+        <div class="text-center mt-6 text-sm text-gray-600">
+            <p>Link reset password berlaku selama 60 menit</p>
+        </div>
     </div>
-</div>
-@endsection
+</body>
+</html>

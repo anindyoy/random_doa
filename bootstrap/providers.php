@@ -5,4 +5,6 @@ return [
     App\Providers\Filament\AdminPanelProvider::class,
     App\Providers\FortifyServiceProvider::class,
     App\Providers\VoltServiceProvider::class,
+    App\Providers\RecaptchaServiceProvider::class,
+
 ];
