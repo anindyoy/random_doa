@@ -32,6 +32,7 @@
                             {{ $doa->judul }}
                         </h2>
                     </div>
+
                     <div class="text-xl leading-relaxed text-gray-800 space-y-4">
                         <p>{!! nl2br(e($doa->keterangan)) !!}</p>
                     </div>
