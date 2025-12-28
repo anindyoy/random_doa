@@ -7,6 +7,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use STS\FilamentImpersonate\Actions\Impersonate;
 
 class UsersTable
 {
@@ -20,6 +21,9 @@ class UsersTable
                         fn($record) => 'Verified at: ' . $record->email_verified_at
                     ),
                 TextColumn::make('created_at'),
+            ])
+            ->actions([
+                Impersonate::make()
             ]);
     }
 }
