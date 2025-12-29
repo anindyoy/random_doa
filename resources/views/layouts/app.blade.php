@@ -5,10 +5,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>Random Doa - Temukan Inspirasi Doa Al-Qur'an & Sunnah</title>
+    <meta name="title" content="Random Doa - Temukan Inspirasi Doa Al-Qur'an & Sunnah">
+    <meta name="description" content="Temukan inspirasi doa harian yang bersumber dari al-Qur'an dan Sunnah secara acak untuk meningkatkan spiritualitas Anda setiap hari.">
+    <meta name="keywords" content="doa harian, doa islam, random doa, doa al-quran, doa sunnah, inspirasi doa">
+    <meta name="author" content="Random Doa">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Random Doa - Temukan Inspirasi Doa">
+    <meta property="og:description" content="Temukan koleksi doa-doa mustajab secara acak sesuai dengan al-Qur'an dan Sunnah.">
+    {{-- Ganti path image dengan logo atau screenshot aplikasi Anda --}}
+    <meta property="og:image" content="{{ asset('screenshot.png') }}">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
