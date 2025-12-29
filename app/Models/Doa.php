@@ -4,14 +4,16 @@ namespace App\Models;
 
 use App\Models\Tag;
 use App\Models\User;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Doa extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $table = 'doa';
 
@@ -30,6 +32,13 @@ class Doa extends Model
         'untuk_pribadi' => 'boolean',
         'visibility' => 'boolean',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
 
     public function user(): BelongsTo
     {
