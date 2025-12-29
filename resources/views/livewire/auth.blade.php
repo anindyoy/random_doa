@@ -1,32 +1,48 @@
-<div class="mb-4 flex justify-end" x-data="{ showLoginModal: false, showRegisterModal: false, showForgotModal: false }">
+<div class="mb-6 flex flex-wrap justify-end items-center gap-2" x-data="{ showLoginModal: false, showRegisterModal: false, showForgotModal: false }">
+
+    {{-- Tombol Riwayat --}}
+    @if (isset($historyDetails) && count($historyDetails) > 0)
+        <button
+            type="button"
+            @click="$dispatch('toggle-sidebar')"
+            class="inline-flex items-center px-4 py-2 bg-amber-500 text-white text-sm font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-sm cursor-pointer border border-amber-600/20">
+            <i class="fas fa-history mr-2"></i>
+            Riwayat <span class="ml-1 px-1.5 py-0.5 bg-white/20 rounded text-xs">{{ count($historyDetails) }}</span>
+        </button>
+    @endif
+
     @auth
-        <div class="flex items-center gap-3 bg-white px-4 py-2 rounded-lg shadow-md border border-gray-200">
-            <span class="text-sm text-gray-700">
-                <i class="fas fa-user-circle text-indigo-600 mr-1"></i>
-                <span class="font-medium">{{ Auth::user()->name }}</span>
-            </span>
-            <div class="flex gap-2">
+        {{-- Sisi User Terautentikasi --}}
+        <div class="flex items-center gap-2 bg-white p-1 pr-2 rounded-lg shadow-sm border border-gray-200">
+            <div class="flex items-center gap-2 px-3 py-1 bg-gray-50 rounded-md border border-gray-100">
+                <i class="fas fa-user-circle text-indigo-600"></i>
+                <span class="text-sm font-medium text-gray-700">{{ Auth::user()->name }}</span>
+            </div>
+
+            <div class="flex gap-1.5">
                 <a href="{{ route('filament.admin.pages.dashboard') }}"
-                    class="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 transition duration-150 no-underline shadow-md cursor-pointer">
+                    class="px-3 py-1.5 bg-indigo-600 text-white text-xs font-bold rounded-md hover:bg-indigo-700 transition duration-150 no-underline shadow-sm">
                     <i class="fas fa-tachometer-alt mr-1"></i> Member Area
                 </a>
+
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
-                    <button type="submit" class="px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition duration-150 shadow-md cursor-pointer">
+                    <button type="submit" class="px-3 py-1.5 bg-red-600 text-white text-xs font-bold rounded-md hover:bg-red-700 transition duration-150 shadow-sm cursor-pointer">
                         <i class="fas fa-sign-out-alt mr-1"></i> Logout
                     </button>
                 </form>
             </div>
         </div>
     @else
+        {{-- Sisi Guest --}}
         <div class="flex gap-2">
             <button @click="showRegisterModal = true"
-                class="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg border border-green-700 shadow-md hover:bg-green-700 transition duration-150 cursor-pointer">
-                <i class="fas fa-user-plus mr-1"></i> Daftar
+                class="px-4 py-2 bg-white text-gray-700 text-sm font-semibold rounded-lg border border-gray-300 shadow-sm hover:bg-gray-50 transition duration-150 cursor-pointer">
+                Daftar
             </button>
             <button @click="showLoginModal = true"
-                class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg border border-indigo-700 shadow-md hover:bg-indigo-700 transition duration-150 cursor-pointer">
-                <i class="fas fa-sign-in-alt mr-1"></i> Login
+                class="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150 cursor-pointer">
+                Login
             </button>
         </div>
 

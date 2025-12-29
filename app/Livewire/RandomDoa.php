@@ -48,8 +48,8 @@ class RandomDoa extends Component
         if (!$exists) {
             array_unshift($this->historyDetails, [
                 'id' => $doa->id,
-                'title' => $doa->title,
-                'image' => $doa->image_url ?? 'https://via.placeholder.com/150',
+                'judul' => $doa->judul,
+                'gambar' => $doa->gambar ?? 'https://via.placeholder.com/150',
             ]);
 
             // Batasi maksimal 10 data
