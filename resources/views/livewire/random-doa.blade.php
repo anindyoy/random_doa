@@ -9,6 +9,17 @@
             Random Doa
         </h1>
         <p class="text-gray-600 text-sm">Temukan inspirasi doa, sesuai al-Qur'an dan Sunnah, secara acak</p>
+
+        {{-- Button to open history sidebar --}}
+        @if (count($historyDetails) > 0)
+            <button
+                type="button"
+                @click="$dispatch('toggle-sidebar')"
+                class="mt-3 inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 transition duration-200">
+                <i class="fas fa-history mr-2"></i>
+                Lihat Riwayat ({{ count($historyDetails) }})
+            </button>
+        @endif
     </div>
 
     @if ($doa)
@@ -21,7 +32,7 @@
     @endif
 
     {{-- Tombol Navigasi --}}
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="grid grid-cols-2 gap-4">
                 {{-- Tombol Previous --}}
@@ -40,5 +51,119 @@
                 </button>
             </div>
         </div>
+    </div>
+
+    {{-- Off-Canvas Sidebar for History --}}
+    <div
+        x-data="{ open: false }"
+        @toggle-sidebar.window="open = !open"
+        @keydown.escape.window="open = false">
+
+        {{-- Overlay --}}
+        <div
+            x-show="open"
+            x-transition:enter="transition-opacity ease-linear duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition-opacity ease-linear duration-300"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            @click="open = false"
+            class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50"
+            style="display: none;">
+        </div>
+
+        {{-- Sidebar --}}
+        <aside
+            x-show="open"
+            x-transition:enter="transform transition ease-in-out duration-300"
+            x-transition:enter-start="translate-x-full"
+            x-transition:enter-end="translate-x-0"
+            x-transition:leave="transform transition ease-in-out duration-300"
+            x-transition:leave-start="translate-x-0"
+            x-transition:leave-end="translate-x-full"
+            class="fixed top-0 right-0 z-50 h-screen w-80 bg-white shadow-2xl overflow-y-auto"
+            style="display: none;">
+
+            {{-- Header --}}
+            <div class="sticky top-0 bg-white border-b border-gray-200 p-4 z-10">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        <i class="fas fa-history text-indigo-600 mr-2"></i>
+                        Riwayat Doa
+                    </h3>
+                    <button
+                        type="button"
+                        @click="open = false"
+                        class="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1.5 transition duration-200">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">{{ count($historyDetails) }} doa terakhir</p>
+            </div>
+
+            {{-- History List --}}
+            <div class="p-4 space-y-3">
+                @forelse ($historyDetails as $index => $item)
+                    <div
+                        wire:key="history-{{ $item['id'] }}-{{ $index }}"
+                        class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:border-indigo-300 transition duration-200 cursor-pointer group"
+                        wire:click="loadDoaFromHistory({{ $item['id'] }})"
+                        @click="open = false">
+
+                        <div class="flex gap-3 p-3">
+                            {{-- Image --}}
+                            <div class="flex-shrink-0">
+                                <img
+                                    src="{{ $item['image'] }}"
+                                    alt="{{ $item['title'] }}"
+                                    class="w-20 h-20 object-cover rounded-lg group-hover:scale-105 transition duration-200">
+                            </div>
+
+                            {{-- Content --}}
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-start justify-between gap-2">
+                                    <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold text-indigo-700 bg-indigo-100 rounded">
+                                        #{{ $item['id'] }}
+                                    </span>
+                                    @if ($index === 0)
+                                        <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold text-green-700 bg-green-100 rounded">
+                                            Terbaru
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <h4 class="mt-1 text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-indigo-600 transition duration-200">
+                                    {{ $item['title'] }}
+                                </h4>
+
+                                <p class="mt-1 text-xs text-gray-500">
+                                    <i class="far fa-clock mr-1"></i>
+                                    {{ $index === 0 ? 'Baru saja' : ($index + 1) . ' doa yang lalu' }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center py-8">
+                        <i class="fas fa-inbox text-4xl text-gray-300 mb-3"></i>
+                        <p class="text-sm text-gray-500">Belum ada riwayat</p>
+                    </div>
+                @endforelse
+            </div>
+
+            {{-- Footer --}}
+            @if (count($historyDetails) > 0)
+                <div class="sticky bottom-0 bg-gray-50 border-t border-gray-200 p-4">
+                    <button
+                        wire:click="clearHistory"
+                        @click="open = false"
+                        class="w-full py-2.5 px-4 text-sm font-medium text-red-600 bg-white border border-red-300 rounded-lg hover:bg-red-50 focus:ring-4 focus:outline-none focus:ring-red-200 transition duration-200">
+                        <i class="fas fa-trash-alt mr-2"></i>
+                        Hapus Semua Riwayat
+                    </button>
+                </div>
+            @endif
+        </aside>
     </div>
 </div>

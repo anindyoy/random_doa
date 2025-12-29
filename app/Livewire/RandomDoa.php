@@ -12,11 +12,15 @@ class RandomDoa extends Component
     public $tags;
     public $history = [];
     public $historyIndex = -1;
+    public $historyDetails = [];
 
     public function mount()
     {
         $this->loadInitialDoa();
         $this->tags = Tag::all();
+        if ($this->doa) {
+            $this->updateHistoryDetails($this->doa);
+        }
     }
 
     private function loadInitialDoa()
@@ -29,19 +33,38 @@ class RandomDoa extends Component
         }
     }
 
+    private function updateHistoryDetails($doa)
+    {
+        // Cek apakah doa sudah ada di historyDetails
+        $exists = false;
+        foreach ($this->historyDetails as $item) {
+            if ($item['id'] === $doa->id) {
+                $exists = true;
+                break;
+            }
+        }
+
+        // Hanya tambahkan jika belum ada
+        if (!$exists) {
+            array_unshift($this->historyDetails, [
+                'id' => $doa->id,
+                'title' => $doa->title,
+                'image' => $doa->image_url ?? 'https://via.placeholder.com/150',
+            ]);
+
+            // Batasi maksimal 10 data
+            if (count($this->historyDetails) > 10) {
+                array_pop($this->historyDetails);
+            }
+        }
+    }
+
     public function loadRandomDoa()
     {
-        // 1. Ambil ID dari 5 riwayat terakhir agar tidak duplikat
-        // Kita ambil dari history berdasarkan historyIndex saat ini
         $excludeIds = array_slice($this->history, max(0, $this->historyIndex - 4), 5);
-
         $query = Doa::with('tags');
-
-        // 2. Cek jumlah total doa di database
         $totalDoa = Doa::count();
 
-        // 3. Jika record > 10, terapkan filter 'whereNotIn'
-        // Jika record <= 10, kita hanya exclude ID yang sedang tampil (agar tidak muncul 2x berturut-turut)
         if ($totalDoa > 10) {
             $query->whereNotIn('id', $excludeIds);
         } else {
@@ -51,13 +74,11 @@ class RandomDoa extends Component
         $newDoa = $query->inRandomOrder()->first();
 
         if (!$newDoa) {
-            // Fallback jika karena satu dan lain hal query tidak menghasilkan data
             $newDoa = Doa::with('tags')->where('id', '!=', $this->doa->id)->inRandomOrder()->first();
         }
 
         if (!$newDoa) return;
 
-        // Logika manajemen history (menghapus forward history jika kita sedang di posisi 'previous')
         if ($this->historyIndex < count($this->history) - 1) {
             $this->history = array_slice($this->history, 0, $this->historyIndex + 1);
         }
@@ -65,8 +86,8 @@ class RandomDoa extends Component
         $this->doa = $newDoa;
         $this->history[] = $this->doa->id;
         $this->historyIndex = count($this->history) - 1;
+        $this->updateHistoryDetails($newDoa);
 
-        // Opsional: Batasi ukuran array history agar tidak terlalu besar di session/memory
         if (count($this->history) > 25) {
             array_shift($this->history);
             $this->historyIndex--;
@@ -79,6 +100,29 @@ class RandomDoa extends Component
             $this->historyIndex--;
             $previousDoaId = $this->history[$this->historyIndex];
             $this->doa = Doa::with('tags')->find($previousDoaId);
+        }
+    }
+
+    public function loadDoaFromHistory($doaId)
+    {
+        // Cari index doa di history
+        $index = array_search($doaId, $this->history);
+
+        if ($index !== false) {
+            $this->historyIndex = $index;
+            $this->doa = Doa::with('tags')->find($doaId);
+        } else {
+            // Jika tidak ada di history, tambahkan ke history
+            $doa = Doa::with('tags')->find($doaId);
+            if ($doa) {
+                if ($this->historyIndex < count($this->history) - 1) {
+                    $this->history = array_slice($this->history, 0, $this->historyIndex + 1);
+                }
+
+                $this->doa = $doa;
+                $this->history[] = $doa->id;
+                $this->historyIndex = count($this->history) - 1;
+            }
         }
     }
 }

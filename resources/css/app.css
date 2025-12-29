@@ -1,12 +1,16 @@
-@import 'tailwindcss';
+/* 1. Import Font harus paling atas */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* 2. Framework & Plugin */
+@import "tailwindcss";
+@plugin "flowbite/plugin";
+
+/* 3. CSS Pihak Ketiga Lainnya */
 @import '../../vendor/livewire/flux/dist/flux.css';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+/* 4. Konfigurasi Source (untuk scanning class) */
+@source "../views/**/*.blade.php";
+@source "../js/**/*.js";
+@source "../../node_modules/flowbite/**/*.js";
 
-@source '../views';
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
-@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+/* 5. Custom CSS Anda jika ada di bawah sini */
