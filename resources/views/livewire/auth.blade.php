@@ -58,7 +58,7 @@
                 class="fixed inset-0 z-50 overflow-y-auto"
                 style="display: none;">
 
-                <div @click="showLoginModal = false" class="fixed inset-0 bg-white bg-opacity-20 backdrop-blur-sm transition-opacity"></div>
+                <div @click="showLoginModal = false" class="fixed inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity"></div>
 
                 <div class="flex items-center justify-center min-h-screen p-4">
                     <div x-show="showLoginModal"
@@ -179,7 +179,7 @@
                 class="fixed inset-0 z-50 overflow-y-auto"
                 style="display: none;">
 
-                <div @click="showRegisterModal = false" class="fixed inset-0 bg-white bg-opacity-20 backdrop-blur-sm transition-opacity"></div>
+                <div @click="showRegisterModal = false" class="fixed inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity"></div>
 
                 <div class="flex items-center justify-center min-h-screen p-4">
                     <div x-show="showRegisterModal"
@@ -321,7 +321,7 @@
                 class="fixed inset-0 z-50 overflow-y-auto"
                 style="display: none;">
 
-                <div @click="showForgotModal = false" class="fixed inset-0 bg-white bg-opacity-20 backdrop-blur-sm transition-opacity"></div>
+                <div @click="showForgotModal = false" class="fixed inset-0 bg-black/40 backdrop-blur-[2px] transition-opacity"></div>
 
                 <div class="flex items-center justify-center min-h-screen p-4">
                     <div x-show="showForgotModal"
