@@ -54,4 +54,11 @@ class Doa extends Model
     {
         return $this->belongsToMany(User::class)->withPivot('visibility', 'love');
     }
+
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'doa_user')
+            ->withPivot('love', 'visibility')
+            ->withTimestamps();
+    }
 }

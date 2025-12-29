@@ -5,6 +5,8 @@ namespace App\Livewire;
 use App\Models\Doa;
 use App\Models\Tag;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class RandomDoa extends Component
 {
@@ -12,6 +14,7 @@ class RandomDoa extends Component
     public $tags;
     public $history = [];
     public $historyIndex = -1;
+    public $isLoved = false;
     public $historyDetails = [];
 
     public function mount()
@@ -20,6 +23,71 @@ class RandomDoa extends Component
         $this->tags = Tag::all();
         if ($this->doa) {
             $this->updateHistoryDetails($this->doa);
+            $this->checkIfLoved();
+        }
+    }
+
+    public function toggleLove()
+    {
+        if (!Auth::check()) {
+            $this->dispatch('toggle-login-modal'); // Sesuaikan dengan nama event di auth.blade.php
+            return;
+        }
+
+        $userId = Auth::id();
+        $doaId = $this->doa->id;
+
+        $existing = \DB::table('doa_user')
+            ->where('user_id', $userId)
+            ->where('doa_id', $doaId)
+            ->first();
+
+        if ($existing && $existing->love == 1) {
+            // Jika sudah love, maka unlove (hapus atau set 0)
+            \DB::table('doa_user')
+                ->where('user_id', $userId)
+                ->where('doa_id', $doaId)
+                ->update(['love' => 0, 'updated_at' => now()]);
+            $this->isLoved = false;
+        } else {
+            // Jika belum ada atau love = 0, maka set love = 1
+            \DB::table('doa_user')->updateOrInsert(
+                ['user_id' => $userId, 'doa_id' => $doaId],
+                ['love' => 1]
+            );
+            $this->isLoved = true;
+        }
+    }
+
+    public function getFavoriteListProperty()
+    {
+        return Auth::check() ? Auth::user()->favoriteDoas()->get() : [];
+    }
+
+    // Method untuk mengecek status love dari database
+    public function checkIfLoved()
+    {
+        if (Auth::check() && $this->doa) {
+            // Cek apakah ada record di doa_user untuk user ini, doa ini, dan love = 1
+            $this->isLoved = \DB::table('doa_user')
+                ->where('user_id', Auth::id())
+                ->where('doa_id', $this->doa->id)
+                ->where('love', 1)
+                ->exists();
+        } else {
+            $this->isLoved = false;
+        }
+    }
+
+    // Update status love setiap kali doa berubah
+    public function updatedDoa()
+    {
+        if (Auth::check() && $this->doa) {
+            $this->isLoved = Auth::user()->favoriteDoas()
+                ->where('doa_id', $this->doa->id)
+                ->exists();
+        } else {
+            $this->isLoved = false;
         }
     }
 
@@ -92,6 +160,8 @@ class RandomDoa extends Component
             array_shift($this->history);
             $this->historyIndex--;
         }
+
+        $this->checkIfLoved();
     }
 
     public function loadPreviousDoa()
@@ -100,6 +170,7 @@ class RandomDoa extends Component
             $this->historyIndex--;
             $previousDoaId = $this->history[$this->historyIndex];
             $this->doa = Doa::with('tags')->find($previousDoaId);
+            $this->checkIfLoved();
         }
     }
 
@@ -124,5 +195,7 @@ class RandomDoa extends Component
                 $this->historyIndex = count($this->history) - 1;
             }
         }
+
+        $this->checkIfLoved();
     }
 }

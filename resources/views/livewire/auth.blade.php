@@ -1,4 +1,4 @@
-<div class="mb-6 flex flex-wrap justify-end items-center gap-2" x-data="{ showLoginModal: false, showRegisterModal: false, showForgotModal: false }">
+<div class="mb-6 flex flex-wrap justify-end items-center gap-2" x-data="{ showLoginModal: false, showRegisterModal: false, showForgotModal: false }" @open-login-modal.window="showLoginModal = true">
 
     {{-- Tombol Riwayat --}}
     @if (isset($historyDetails) && count($historyDetails) > 0)

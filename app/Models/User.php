@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Doa;
 use Filament\Panel;
 use Illuminate\Support\Str;
 use Spatie\Activitylog\LogOptions;
@@ -75,5 +76,13 @@ class User extends Authenticatable implements FilamentUser
             ->take(2)
             ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    public function favoriteDoas()
+    {
+        return $this->belongsToMany(Doa::class, 'doa_user')
+            ->wherePivot('love', 1) // Filter hanya yang di-love
+            ->withPivot('love', 'visibility')
+            ->withTimestamps();
     }
 }

@@ -79,6 +79,28 @@
                 x-transition:leave-end="translate-x-full"
                 class="fixed top-0 right-0 z-[60] h-screen w-80 bg-white shadow-2xl overflow-y-auto"
                 style="display: none;">
+                {{-- Tambahkan Tab atau Section Baru di Sidebar --}}
+                <div class="p-4 border-b">
+                    <h3 class="font-bold text-gray-800"><i class="fas fa-heart text-red-500 mr-2"></i> Doa Favorit Saya</h3>
+                </div>
+
+                <div class="p-4 space-y-3">
+                    @forelse ($this->favoriteList as $fav)
+                        <div class="flex items-center justify-between bg-red-50 p-2 rounded-lg border border-red-100">
+                            <div class="flex items-center gap-2 cursor-pointer" wire:click="loadDoaFromHistory({{ $fav->id }})">
+                                <img src="{{ $fav->gambar }}" class="w-10 h-10 rounded object-cover">
+                                <span class="text-sm font-medium truncate w-32">{{ $fav->judul }}</span>
+                            </div>
+                            {{-- Tombol Hapus Love dari List --}}
+                            <button wire:click="toggleLove({{ $fav->id }})" class="text-red-400 hover:text-red-600 p-1">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    @empty
+                        <p class="text-xs text-gray-400 text-center">Belum ada doa yang disukai.</p>
+                    @endforelse
+                </div>
+
                 {{-- Header --}}
                 <div class="sticky top-0 bg-white border-b border-gray-200 p-4 z-10">
                     <div class="flex items-center justify-between">
@@ -162,15 +184,4 @@
         </div>
 
     </div>
-
-    @push('auth-actions')
-        @if (count($historyDetails) > 0)
-            <button
-                type="button"
-                @click="$dispatch('toggle-sidebar')"
-                class="flex items-center px-4 py-2 bg-amber-500 text-white text-sm font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-md cursor-pointer">
-                <i class="fas fa-history mr-1"></i>
-                <span class="hidden sm:inline">Riwayat</span> ({{ count($historyDetails) }})
-            </button>
-        @endif
-    @endpush
+</div>
