@@ -10,7 +10,7 @@
                     class="h-96 w-auto rounded-lg object-contain shadow-md border-4 border-white cursor-pointer"
                     style="max-height: 400px;"
                     x-on:click="imageUrl = '{{ asset('storage/' . $doa->gambar) }}'; open = true">
-            </div>doa->gambar
+            </div>
         </div>
 
         <div class="p-6 md:p-8">

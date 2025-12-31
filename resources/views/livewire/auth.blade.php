@@ -109,6 +109,7 @@
                                 </label>
                                 <input type="email"
                                     id="email"
+                                    autocomplete="email"
                                     name="email"
                                     value="{{ old('email') }}"
                                     required
@@ -125,6 +126,7 @@
                                 <input type="password"
                                     id="password"
                                     name="password"
+                                    autocomplete="current-password"
                                     required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
                                     placeholder="••••••••">
@@ -245,6 +247,7 @@
                                 </label>
                                 <input type="email"
                                     id="register_email"
+                                    autocomplete="email"
                                     name="email"
                                     value="{{ old('email') }}"
                                     required
@@ -261,6 +264,7 @@
                                     id="register_password"
                                     name="password"
                                     required
+                                    autocomplete="new-password"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                                     placeholder="Min. 8 karakter">
                             </div>
@@ -273,6 +277,7 @@
                                 <input type="password"
                                     id="password_confirmation"
                                     name="password_confirmation"
+                                    autocomplete="new-password"
                                     required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                                     placeholder="Ulangi password">
@@ -383,6 +388,7 @@
                                 </label>
                                 <input type="email"
                                     id="forgot_email"
+                                    autocomplete="email"
                                     name="email"
                                     value="{{ old('email') }}"
                                     required
