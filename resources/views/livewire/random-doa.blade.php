@@ -88,7 +88,7 @@
                     @forelse ($this->favoriteList as $fav)
                         <div class="flex items-center justify-between bg-red-50 p-2 rounded-lg border border-red-100">
                             <div class="flex items-center gap-2 cursor-pointer" wire:click="loadDoaFromHistory({{ $fav->id }})">
-                                <img src="{{ $fav->gambar }}" class="w-10 h-10 rounded object-cover">
+                                <img src=""{{ asset('storage/' . $fav->gambar) }}"" class="w-10 h-10 rounded object-cover">
                                 <span class="text-sm font-medium truncate w-32">{{ $fav->judul }}</span>
                             </div>
                             {{-- Tombol Hapus Love dari List --}}
@@ -131,7 +131,7 @@
                                 {{-- Image --}}
                                 <div class="flex-shrink-0">
                                     <img
-                                        src="{{ $item['gambar'] }}"
+                                        src="{{ asset('storage/' . $item['gambar']) }}"
                                         alt="{{ $item['judul'] }}"
                                         class="w-20 h-20 object-cover rounded-lg group-hover:scale-105 transition duration-200">
                                 </div>
