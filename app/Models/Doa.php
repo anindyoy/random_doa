@@ -33,6 +33,13 @@ class Doa extends Model
         'visibility' => 'boolean',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($record) {
+            $record->user_id = auth()->id();
+        });
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

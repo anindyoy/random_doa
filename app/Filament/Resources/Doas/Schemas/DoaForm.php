@@ -17,10 +17,6 @@ class DoaForm
         return $schema
             ->components([
                 Grid::make()->schema([
-                    Select::make('user_id')
-                        ->visible(auth()->user()->is_admin)
-                        ->relationship('user', 'name')
-                        ->required(),
                     TextInput::make('judul')->required()->columnSpan(2),
                     Textarea::make('keterangan')
                         ->default(null)
@@ -29,7 +25,7 @@ class DoaForm
                     Grid::make()->schema([
                         TextInput::make('sumber_desain')
                             ->default(null),
-                        Toggle::make('visibility')->label('Tampilkan'),
+                        Toggle::make('visibility')->label('Tampilkan')->default(true),
                         Toggle::make('untuk_pribadi'),
 
                         Select::make('tags')
