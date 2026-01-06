@@ -25,7 +25,7 @@
                         @endif
                     </button>
 
-                    <span class="inline-block px-3 py-1 text-xs font-semibold bg-indigo-100 text-indigo-700 rounded-full">
+                    <span class="inline-block px-3 py-1 text-xs font-semibold bg-green-100 text-green-700 rounded-full">
                         #{{ $doa->id }}
                     </span>
 
@@ -37,7 +37,7 @@
                         @endforeach
                     @endif
                 </div>
-                <h2 class="text-3xl font-extrabold text-indigo-700">
+                <h2 class="text-3xl font-extrabold text-orange-700">
                     {{ $doa->judul }}
                 </h2>
             </div>

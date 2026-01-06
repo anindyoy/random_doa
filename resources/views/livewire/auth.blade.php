@@ -5,7 +5,7 @@
         <button
             type="button"
             @click="$dispatch('toggle-sidebar')"
-            class="inline-flex items-center px-4 py-2 bg-amber-500 text-white text-sm font-semibold rounded-lg hover:bg-amber-600 transition duration-150 shadow-sm cursor-pointer border border-amber-600/20">
+            class="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-sm cursor-pointer border border-green-600/20">
             <i class="fas fa-history mr-2"></i>
             Riwayat <span class="ml-1 px-1.5 py-0.5 bg-white/20 rounded text-xs">{{ count($historyDetails) }}</span>
         </button>
@@ -15,13 +15,13 @@
         {{-- Sisi User Terautentikasi --}}
         <div class="flex items-center gap-2 bg-white p-1 pr-2 rounded-lg shadow-sm border border-gray-200">
             <div class="flex items-center gap-2 px-3 py-1 bg-gray-50 rounded-md border border-gray-100">
-                <i class="fas fa-user-circle text-indigo-600"></i>
+                <i class="fas fa-user-circle text-green-600"></i>
                 <span class="text-sm font-medium text-gray-700">{{ Auth::user()->name }}</span>
             </div>
 
             <div class="flex gap-1.5">
                 <a href="{{ route('filament.admin.pages.dashboard') }}"
-                    class="px-3 py-1.5 bg-indigo-600 text-white text-xs font-bold rounded-md hover:bg-indigo-700 transition duration-150 no-underline shadow-sm">
+                    class="px-3 py-1.5 bg-green-600 text-white text-xs font-bold rounded-md hover:bg-green-700 transition duration-150 no-underline shadow-sm">
                     <i class="fas fa-tachometer-alt mr-1"></i> Member Area
                 </a>
 
@@ -41,7 +41,7 @@
                 Daftar
             </button>
             <button @click="showLoginModal = true"
-                class="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150 cursor-pointer">
+                class="px-4 py-2 bg-orange-600 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-orange-700 transition duration-150 cursor-pointer">
                 Login
             </button>
         </div>
@@ -80,7 +80,7 @@
 
                         <div class="px-6 pt-6 pb-4 border-b border-gray-200">
                             <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-                                <i class="fas fa-sign-in-alt text-indigo-600"></i>
+                                <i class="fas fa-sign-in-alt text-green-600"></i>
                                 Login
                             </h3>
                             <p class="text-sm text-gray-600 mt-1">Masuk untuk mengakses halaman kelola doa pribadimu</p>
@@ -114,7 +114,7 @@
                                     value="{{ old('email') }}"
                                     required
                                     autofocus
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                                     placeholder="admin@example.com">
                             </div>
 
@@ -128,7 +128,7 @@
                                     name="password"
                                     autocomplete="current-password"
                                     required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                                     placeholder="••••••••">
                             </div>
 
@@ -137,20 +137,20 @@
                                     <input type="checkbox"
                                         id="remember"
                                         name="remember"
-                                        class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded cursor-pointer">
+                                        class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded cursor-pointer">
                                     <label for="remember" class="ml-2 block text-sm text-gray-700 cursor-pointer">
                                         Ingat saya
                                     </label>
                                 </div>
                                 <button type="button"
                                     @click="showLoginModal = false; showForgotModal = true"
-                                    class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                                    class="text-sm text-green-600 hover:text-green-800 font-medium">
                                     Lupa password?
                                 </button>
                             </div>
 
                             <button type="submit"
-                                class="w-full py-3 px-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 cursor-pointer">
+                                class="w-full py-3 px-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition duration-150 cursor-pointer">
                                 <i class="fas fa-sign-in-alt mr-2"></i>
                                 Masuk
                             </button>
@@ -304,7 +304,7 @@
                                 <span class="text-sm text-gray-600">Sudah punya akun?</span>
                                 <button type="button"
                                     @click="showRegisterModal = false; showLoginModal = true"
-                                    class="text-sm text-indigo-600 hover:text-indigo-800 font-medium ml-1">
+                                    class="text-sm text-green-600 hover:text-green-800 font-medium ml-1">
                                     Login di sini
                                 </button>
                             </div>
@@ -406,7 +406,7 @@
                             <div class="mt-4 text-center">
                                 <button type="button"
                                     @click="showForgotModal = false; showLoginModal = true"
-                                    class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                                    class="text-sm text-green-600 hover:text-green-800 font-medium">
                                     <i class="fas fa-arrow-left mr-1"></i>
                                     Kembali ke Login
                                 </button>

@@ -5,7 +5,7 @@
     {{-- Header --}}
     <div class="mb-2 text-center">
         <h1 class="text-4xl font-extrabold text-gray-800 mb-2">
-            <i class="fas fa-random text-indigo-600 mr-2"></i>
+            <i class="fas fa-random text-green-600 mr-2"></i>
             Random Doa
         </h1>
         <p class="text-gray-600 text-sm">Temukan inspirasi doa, sesuai al-Qur'an dan Sunnah, secara acak</p>
@@ -105,13 +105,13 @@
                 <div class="sticky top-0 bg-white border-b border-gray-200 p-4 z-10">
                     <div class="flex items-center justify-between">
                         <h3 class="text-lg font-semibold text-gray-900">
-                            <i class="fas fa-history text-indigo-600 mr-2"></i>
+                            <i class="fas fa-history text-green-600 mr-2"></i>
                             Riwayat Doa
                         </h3>
                         <button
                             type="button"
                             @click="open = false"
-                            class="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1.5 transition duration-200">
+                            class="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-lg p-1.5 transition duration-200">
                             <i class="fas fa-times text-xl"></i>
                         </button>
                     </div>
@@ -123,7 +123,7 @@
                     @forelse ($historyDetails as $index => $item)
                         <div
                             wire:key="history-{{ $item['id'] }}-{{ $index }}"
-                            class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:border-indigo-300 transition duration-200 cursor-pointer group"
+                            class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:border-green-300 transition duration-200 cursor-pointer group"
                             wire:click="loadDoaFromHistory({{ $item['id'] }})"
                             @click="open = false">
 
@@ -139,7 +139,7 @@
                                 {{-- Content --}}
                                 <div class="flex-1 min-w-0">
                                     <div class="flex items-start justify-between gap-2">
-                                        <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold text-indigo-700 bg-indigo-100 rounded">
+                                        <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold text-green-700 bg-green-100 rounded">
                                             #{{ $item['id'] }}
                                         </span>
                                         @if ($index === 0)
@@ -149,7 +149,7 @@
                                         @endif
                                     </div>
 
-                                    <h4 class="mt-1 text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-indigo-600 transition duration-200">
+                                    <h4 class="mt-1 text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-green-600 transition duration-200">
                                         {{ $item['judul'] }}
                                     </h4>
 

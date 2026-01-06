@@ -7,16 +7,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gradient-to-br from-indigo-50 via-white to-purple-50 min-h-screen flex items-center justify-center p-4">
+<body class="bg-gradient-to-br from-green-50 via-white to-purple-50 min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-md">
         <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
             {{-- Header --}}
-            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-8 text-center">
+            <div class="bg-gradient-to-r from-green-600 to-purple-600 px-6 py-8 text-center">
                 <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4">
-                    <i class="fas fa-key text-3xl text-indigo-600"></i>
+                    <i class="fas fa-key text-3xl text-green-600"></i>
                 </div>
                 <h1 class="text-2xl font-bold text-white mb-2">Reset Password</h1>
-                <p class="text-indigo-100 text-sm">Buat password baru untuk akun Anda</p>
+                <p class="text-green-100 text-sm">Buat password baru untuk akun Anda</p>
             </div>
 
             {{-- Form --}}
@@ -65,7 +65,7 @@
                             name="password"
                             required
                             autofocus
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                             placeholder="Min. 8 karakter">
                     </div>
 
@@ -79,20 +79,20 @@
                             id="password_confirmation"
                             name="password_confirmation"
                             required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                             placeholder="Ulangi password baru">
                     </div>
 
                     {{-- Submit Button --}}
                     <button type="submit"
-                        class="w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 shadow-md">
+                        class="w-full py-3 px-4 bg-gradient-to-r from-green-600 to-purple-600 text-white font-semibold rounded-lg hover:from-green-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition duration-150 shadow-md">
                         <i class="fas fa-check-circle mr-2"></i>
                         Reset Password
                     </button>
 
                     {{-- Back to Login Link --}}
                     <div class="mt-6 text-center">
-                        <a href="/" class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                        <a href="/" class="text-sm text-green-600 hover:text-green-800 font-medium">
                             <i class="fas fa-arrow-left mr-1"></i>
                             Kembali ke Halaman Utama
                         </a>
