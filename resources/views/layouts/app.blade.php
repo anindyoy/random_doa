@@ -96,18 +96,4 @@
     @livewireScripts
 </body>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('Livewire:', window.Livewire);
-        console.log('App URL:', '{{ config('app.url') }}');
-        console.log('Asset URL:', '{{ config('app.asset_url') }}');
-
-        if (window.Livewire) {
-            console.log('Livewire is loaded');
-        } else {
-            console.error('Livewire NOT loaded!');
-        }
-    });
-</script>
-
 </html>
