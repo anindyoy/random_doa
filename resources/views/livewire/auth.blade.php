@@ -5,7 +5,7 @@
         <button
             type="button"
             @click="$dispatch('toggle-sidebar')"
-            class="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-sm cursor-pointer border border-green-600/20">
+            class="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-semibold rounded-lg hover:bg-green-600 transition duration-150 shadow-sm cursor-pointer border border-green-600/20" id="history-button">
             <i class="fas fa-history mr-2"></i>
             Riwayat <span class="ml-1 px-1.5 py-0.5 bg-white/20 rounded text-xs">{{ count($historyDetails) }}</span>
         </button>

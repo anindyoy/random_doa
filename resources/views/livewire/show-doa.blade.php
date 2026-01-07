@@ -30,6 +30,7 @@
                     </span>
 
                     @if ($doa->tags && $doa->tags->count() > 0)
+                        <span class="ml-2 text-xs font-medium">Tags:</span>
                         @foreach ($doa->tags as $tag)
                             <span class="inline-block px-3 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full">
                                 {{ $tag->nama }}

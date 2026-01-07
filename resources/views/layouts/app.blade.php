@@ -97,32 +97,39 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const driver = new Driver({
+            const tour = window.driver({
                 animate: true,
-                opacity: 0.5,
+                opacity: 0.75,
                 showProgress: true,
                 allowClose: true,
+                steps: [{
+                        element: '#doa-image',
+                        popover: {
+                            title: 'Gambar Doa',
+                            description: 'Klik gambar untuk melihat versi lebih besar.',
+                            side: 'bottom',
+                        }
+                    },
+                    {
+                        element: '#next-random-doa-button',
+                        popover: {
+                            title: 'Doa Acak',
+                            description: 'Klik untuk memuat doa acak lainnya.',
+                            side: 'top',
+                        }
+                    },
+                    {
+                        element: '#history-button',
+                        popover: {
+                            title: 'Riwayat Doa',
+                            description: 'Klik untuk melihat riwayat doa yang telah Anda lihat sebelumnya.',
+                            side: 'left',
+                        }
+                    }
+                ]
             });
 
-            driver.defineSteps([{
-                    element: '#doa-image',
-                    popover: {
-                        title: 'Gambar Doa',
-                        description: 'Klik gambar untuk melihat versi lebih besar.',
-                        position: 'bottom'
-                    }
-                },
-                {
-                    element: '#next-random-doa-button',
-                    popover: {
-                        title: 'Doa Acak Berikutnya',
-                        description: 'Klik tombol ini untuk memuat doa acak lainnya.',
-                        position: 'top'
-                    }
-                }
-            ]);
-
-            driver.start();
+            tour.drive();
         });
     </script>
 
