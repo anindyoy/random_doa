@@ -3,7 +3,7 @@
 
         {{-- Gambar Doa --}}
         <div class="p-4 bg-gray-50 border-b border-gray-100">
-            <div class="flex justify-center">
+            <div class="flex justify-center" id='doa-image'>
                 {{-- Tambahkan event handler x-on:click untuk membuka modal --}}
                 <img src="{{ asset('storage/' . $doa->gambar) }}"
                     alt="Gambar {{ $doa->judul }}"

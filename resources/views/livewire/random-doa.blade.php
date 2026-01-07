@@ -35,7 +35,8 @@
                 {{-- Tombol Next (Doa Acak) --}}
                 <button
                     wire:click="loadRandomDoa"
-                    class="py-3 px-6 bg-green-600 text-white font-bold rounded-lg shadow-xl hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition cursor-pointer duration-150">
+                    class="py-3 px-6 bg-green-600 text-white font-bold rounded-lg shadow-xl hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition cursor-pointer duration-150"
+                    id="next-random-doa-button">
                     <i class="fas fa-random mr-2"></i> Doa Acak Berikutnya
                 </button>
             </div>

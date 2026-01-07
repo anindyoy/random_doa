@@ -94,6 +94,38 @@
     <x-impersonate::banner />
 
     @livewireScripts
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const driver = new Driver({
+                animate: true,
+                opacity: 0.5,
+                showProgress: true,
+                allowClose: true,
+            });
+
+            driver.defineSteps([{
+                    element: '#doa-image',
+                    popover: {
+                        title: 'Gambar Doa',
+                        description: 'Klik gambar untuk melihat versi lebih besar.',
+                        position: 'bottom'
+                    }
+                },
+                {
+                    element: '#next-random-doa-button',
+                    popover: {
+                        title: 'Doa Acak Berikutnya',
+                        description: 'Klik tombol ini untuk memuat doa acak lainnya.',
+                        position: 'top'
+                    }
+                }
+            ]);
+
+            driver.start();
+        });
+    </script>
+
 </body>
 
 </html>

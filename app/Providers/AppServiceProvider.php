@@ -2,12 +2,13 @@
 
 namespace App\Providers;
 
-use Livewire\Livewire;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\URL;
+use Filament\Actions\Action;
+use Filament\View\PanelsRenderHook;
 use Filament\Schemas\Components\Grid;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Filament\Support\Facades\FilamentView;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,16 +34,13 @@ class AppServiceProvider extends ServiceProvider
             // $grid->columns(3);
         });
 
-        Livewire::setScriptRoute(function ($handle) {
-            return Route::get('/randomdoa/livewire/livewire.js', $handle);
-        });
-
-        Livewire::setUpdateRoute(function ($handle) {
-            return Route::post('/randomdoa/livewire/update', $handle);
-        });
-
-        if (app()->environment('production')) {
-            \URL::forceScheme('https');
-        }
+        FilamentView::registerRenderHook(
+            PanelsRenderHook::GLOBAL_SEARCH_AFTER,
+            fn() => Action::make('mainPage')
+                ->label('Halaman Utama')
+                ->icon('heroicon-o-globe-alt')
+                ->url(config('app.url'), shouldOpenInNewTab: true)
+                ->toHtml()
+        );
     }
 }
