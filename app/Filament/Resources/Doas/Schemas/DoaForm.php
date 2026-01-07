@@ -21,7 +21,14 @@ class DoaForm
                     Textarea::make('keterangan')
                         ->default(null)
                         ->columnSpanFull(),
-                    FileUpload::make('gambar')->image(),
+
+                    FileUpload::make('gambar')
+                        ->image()
+                        ->disk('public')
+                        ->directory('doa')
+                        ->visibility('public')
+                        ->preserveFilenames(),
+
                     Grid::make()->schema([
                         TextInput::make('sumber_desain')
                             ->default(null),
