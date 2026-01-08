@@ -23,7 +23,8 @@ class DoasTable
             )
             ->columns([
                 TextColumn::make('judul')
-                    ->searchable(),
+                    ->searchable()
+                    ->wrap(),
                 ImageColumn::make('gambar')
                     ->disk('public')
                     ->visibility('public'),
