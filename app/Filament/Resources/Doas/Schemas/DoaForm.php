@@ -20,7 +20,8 @@ class DoaForm
                     TextInput::make('judul')->required()->columnSpan(2),
                     Textarea::make('keterangan')
                         ->default(null)
-                        ->columnSpanFull(),
+                        ->columnSpanFull()
+                        ->rows(3),
 
                     FileUpload::make('gambar')
                         ->image()
@@ -30,8 +31,7 @@ class DoaForm
                         ->preserveFilenames(),
 
                     Grid::make()->schema([
-                        TextInput::make('sumber_desain')
-                            ->default(null),
+                        TextInput::make('sumber_desain')->default(null),
                         Toggle::make('visibility')->label('Tampilkan')->default(true),
                         Toggle::make('untuk_pribadi'),
 

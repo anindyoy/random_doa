@@ -17,16 +17,7 @@ class Doa extends Model
 
     protected $table = 'doa';
 
-    protected $fillable = [
-        'judul',
-        'gambar',
-        'keterangan',
-        'riwayat',
-        'untuk_pribadi',
-        'user_id',
-        'visibility',
-        'ajuan',
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'untuk_pribadi' => 'boolean',
