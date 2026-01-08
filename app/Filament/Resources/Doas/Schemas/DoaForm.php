@@ -27,8 +27,7 @@ class DoaForm
                         ->image()
                         ->disk('public')
                         ->directory('doa')
-                        ->visibility('public')
-                        ->preserveFilenames(),
+                        ->visibility('public'),
 
                     Grid::make()->schema([
                         TextInput::make('sumber_desain')->default(null),
